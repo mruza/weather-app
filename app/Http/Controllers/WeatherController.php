@@ -2,20 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Measurement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class WeatherController extends Controller
 {
-    //
 
-    public function fetch()
+    public function fetch(Request $request)
     {
-        $url = 'http://api.openweathermap.org/data/2.5/weather?';
-        $response = Http::get($url, [
-            'q' => 'bratislava',
-            'appid' => '9877f88cec9db79e9e74254de7a470b6',
+        $response = Http::get(config('custom.weather_api_url'), [
+            'q' => $request->input('city'),
+            'appid' => config('custom.weather_api_key'),
+            'units' => config('custom.weather_units')
         ]);
-        dd($response);
+        if ($response->ok()) {
+            $body = json_decode($response->body());
+
+            Measurement::create([
+                'city' => $body->name,
+                'temp' => $body->main->temp,
+                'data' => $response->body(),
+            ]);
+        }
     }
 }
