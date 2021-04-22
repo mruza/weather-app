@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('', [WeatherController::class, 'index'])->name('weather.index');
-Route::post('/create', [WeatherController::class, 'fetch'])->name('weather.create');
+Route::post('/create', [WeatherController::class, 'create'])->name('weather.create');
 Route::get('edit/{measurement}', [WeatherController::class, 'edit'])->name('weather.edit');
 Route::put('update/{measurement}', [WeatherController::class, 'update'])->name('weather.update');
 Route::get('show/{measurement}', [WeatherController::class, 'show'])->name('weather.show');
