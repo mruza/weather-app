@@ -14,9 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('weather');
-});
-
-Route::post('/fetch', [WeatherController::class, 'fetch']);
+Route::get('', [WeatherController::class, 'index'])->name('weather.index');
+Route::post('/create', [WeatherController::class, 'fetch'])->name('weather.create');
+Route::get('edit/{measurement}', [WeatherController::class, 'edit'])->name('weather.edit');
+Route::put('update/{measurement}', [WeatherController::class, 'update'])->name('weather.update');
+Route::get('show/{measurement}', [WeatherController::class, 'show'])->name('weather.show');
+Route::delete('delete/{measurement}', [WeatherController::class, 'delete'])->name('weather.delete');
 
