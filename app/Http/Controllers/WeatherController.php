@@ -102,7 +102,7 @@ class WeatherController extends Controller
             $measurement->delete();
         }
 
-        return redirect()->route('weather.index');
+        return redirect()->back();
     }
 
 
